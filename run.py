@@ -1,17 +1,17 @@
-board=[]
+board = []
 
 for x in range(5):
-    board.append(["0"] *5)
+    board.append([" 0 "] * 5)
 
-def print_board(board):
+  def print_board(board):
     for row in board:
-        print(" ",join(row))
+        print(" " ,join(row))
 
-print("Let´s play!")
+print("Lets play!")
 print_board(board)
 
 def random_row(board):
-    return randint(0, len(board) -1)
+    return randint(0,len(board) -1)
 
 def random_col(board):
     return randint(0, len(board[0]) - 1)
@@ -24,12 +24,11 @@ print(ship_col)
 
 for turn in range(4):
     print("Turn", turn + 1)
-    guess_row= int(input("Guess Row: "))
-    guess_col = int(input("Guess Col: "))
+    guess_row= int(input("Guess Row:\n"))
+    guess_col = int(input("Guess Col:\n"))
 
 if guess_row == ship_row and guess_col == ship_col:
         print("Well done! You sank my battleship!")
-break
 
 else:
 if guess_row not in range(5) or guess_col not in range(5):
