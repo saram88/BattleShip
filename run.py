@@ -3,13 +3,11 @@ from random import randint
 
 
 class BattleShipBoard:
-    def __init__(self, size, num_ships, name, type):
+    def __init__(self, size, num_ships, name):
         self.size = size
         self.num_ships = num_ships
         self.name = name
-        self.type = type
         self.board = [["." for x in range(size)] for y in range(size)]
-        self.guesses = []
         self.ships = []
 
     def get_random(self):
@@ -46,20 +44,32 @@ def play(player, computer):
 
     while (len(computer.ships) > 0) and (len(player.ships) > 0):
         """Players turn"""
-        guess_row = ""
-        guess_col = ""
+        print("Your turn")
+        """Do while loop"""
+        while True:
 
-        while not is_valid(computer.size, guess_row):
-            guess_row = (input("Guess row (0 - {}): ".format(player.size - 1)))
-        while not is_valid(computer.size, guess_col):
-            guess_col = (input("Guess col (0 - {}): ".format(player.size - 1)))
+            guess_row = ""
+            guess_col = ""
 
-        iRow = (int)(guess_row)
-        iCol = (int)(guess_col)
+            size = player.size
+
+            while not is_valid(computer.size, guess_row):
+                guess_row = (input("Guess row (0 - {}): ".format(size - 1)))
+            while not is_valid(computer.size, guess_col):
+                guess_col = (input("Guess col (0 - {}): ".format(size - 1)))
+
+            iRow = (int)(guess_row)
+            iCol = (int)(guess_col)
+
+            if computer.board[iRow][iCol] == ".":
+                break
+
+            print("You guessed that one already")
 
         if (iRow, iCol) in computer.ships:
             print("You hit a battleship!")
             computer.board[iRow][iCol] = "X"
+            """Remove ship from list"""
             computer.ships.remove((iRow, iCol))
             if len(computer.ships) == 0:
                 print("Congratulations! You sank all battleship!")
@@ -69,14 +79,22 @@ def play(player, computer):
             computer.board[iRow][iCol] = "-"
 
         """Computers turn"""
-        iRow = computer.get_random()
-        iCol = computer.get_random()
+        """do while"""
+        print("")
+        print("Computers turn")
+        while True:
+            iRow = computer.get_random()
+            iCol = computer.get_random()
+            if player.board[iRow][iCol] == ".":
+                break
 
         print("Computer guessed ({0}, {1})".format(iRow, iCol))
 
+        """Check if hit"""
         if (iRow, iCol) in player.ships:
             print("Computer hit a battleship!")
             player.board[iRow][iCol] = "X"
+            """Remove ship from list"""
             player.ships.remove((iRow, iCol))
             if len(player.ships) == 0:
                 print("You lose! Computer sank all your battleship!")
@@ -94,11 +112,12 @@ def play(player, computer):
 def new_game():
     size = 5
     ships = 3
+
     print("Welcome")
     name = input("Enter players name:\n")
 
-    player_board = BattleShipBoard(size, ships, name, type="player")
-    computer_board = BattleShipBoard(size, ships, "Computer", type="computer")
+    player_board = BattleShipBoard(size, ships, name)
+    computer_board = BattleShipBoard(size, ships, "Computer")
 
     player_board.setup_board()
     computer_board.setup_board()
