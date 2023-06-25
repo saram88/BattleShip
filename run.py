@@ -28,6 +28,17 @@ class BattleShipBoard:
             print(" ".join(row))
 
 
+def is_valid(size, value):
+    if value.isnumeric():
+        if (int(value) < 0) or (int(value) >= size):
+            print("Invalid value")
+            return False
+        else:
+            return True
+    else:
+        return False
+
+
 def play(player, computer):
     print("Let's play")
     player.print_board()
@@ -35,36 +46,44 @@ def play(player, computer):
 
     while (len(computer.ships) > 0) and (len(player.ships) > 0):
         """Players turn"""
-        guess_row = int(input("Guess row (0 - {}): ".format(player.size - 1)))
-        guess_col = int(input("Guess col (0 - {}): ".format(player.size - 1)))
+        guess_row = ""
+        guess_col = ""
 
-        if (guess_row, guess_col) in computer.ships:
+        while not is_valid(computer.size, guess_row):
+            guess_row = (input("Guess row (0 - {}): ".format(player.size - 1)))
+        while not is_valid(computer.size, guess_col):
+            guess_col = (input("Guess col (0 - {}): ".format(player.size - 1)))
+
+        iRow = (int)(guess_row)
+        iCol = (int)(guess_col)
+
+        if (iRow, iCol) in computer.ships:
             print("You hit a battleship!")
-            computer.board[guess_row][guess_col] = "X"
-            computer.ships.remove((guess_row, guess_col))
+            computer.board[iRow][iCol] = "X"
+            computer.ships.remove((iRow, iCol))
             if len(computer.ships) == 0:
                 print("Congratulations! You sank all battleship!")
                 break
         else:
             print("You missed the battleship!")
-            computer.board[guess_row][guess_col] = "-"
+            computer.board[iRow][iCol] = "-"
 
         """Computers turn"""
-        guess_row = computer.get_random()
-        guess_col = computer.get_random()
+        iRow = computer.get_random()
+        iCol = computer.get_random()
 
-        print("Computer guessed ({0}, {1})".format(guess_row, guess_col))
+        print("Computer guessed ({0}, {1})".format(iRow, iCol))
 
-        if (guess_row, guess_col) in player.ships:
+        if (iRow, iCol) in player.ships:
             print("Computer hit a battleship!")
-            player.board[guess_row][guess_col] = "X"
-            player.ships.remove((guess_row, guess_col))
+            player.board[iRow][iCol] = "X"
+            player.ships.remove((iRow, iCol))
             if len(player.ships) == 0:
                 print("You lose! Computer sank all your battleship!")
                 break
         else:
             print("Computer missed the battleship!")
-            player.board[guess_row][guess_col] = "-"
+            player.board[iRow][iCol] = "-"
 
         player.print_board()
         computer.print_board()
