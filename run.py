@@ -29,12 +29,16 @@ class BattleShipBoard:
 def is_valid(size, value):
     if value.isnumeric():
         if (int(value) < 0) or (int(value) >= size):
-            print("Invalid value")
+            print("Value is not between 0 - {}".format(size - 1))
             return False
         else:
             return True
     else:
-        return False
+        if len(value) == 0:
+            return False
+        else:
+            print("Invalid numeric value")
+            return False
 
 
 def play(player, computer):
@@ -115,7 +119,7 @@ def new_game():
 
     print("Welcome to my Battleship!")
     name = input("Enter players name:\n")
-    
+
     player_board = BattleShipBoard(size, ships, name)
     computer_board = BattleShipBoard(size, ships, "Computer")
 
