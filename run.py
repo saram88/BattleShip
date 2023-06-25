@@ -16,10 +16,11 @@ class BattleShipBoard:
         return randint(0, self.size - 1)
 
     def setup_board(self):
-        for _ in range(self.num_ships):
+        while len(self.ships) < self.num_ships:
             row = self.get_random()
             col = self.get_random()
-            self.ships.append((row, col))
+            if not (row, col) in self.ships:
+                self.ships.append((row, col))
 
     def print_board(self):
         print("{}'s board".format(self.name))
@@ -32,26 +33,43 @@ def play(player, computer):
     player.print_board()
     computer.print_board()
 
-    turns = 5
-    for turn in range(turns):
+    while (len(computer.ships) > 0) and (len(player.ships) > 0):
+        """Players turn"""
         guess_row = int(input("Guess row (0 - {}): ".format(player.size - 1)))
         guess_col = int(input("Guess col (0 - {}): ".format(player.size - 1)))
 
         if (guess_row, guess_col) in computer.ships:
             print("You hit a battleship!")
             computer.board[guess_row][guess_col] = "X"
-            computer.ships.Remove(guess_row, guess_col)
-            if len(computer.ships) == 1:
+            computer.ships.remove((guess_row, guess_col))
+            if len(computer.ships) == 0:
                 print("Congratulations! You sank all battleship!")
                 break
         else:
             print("You missed the battleship!")
             computer.board[guess_row][guess_col] = "-"
 
+        """Computers turn"""
+        guess_row = computer.get_random()
+        guess_col = computer.get_random()
+
+        print("Computer guessed ({0}, {1})".format(guess_row, guess_col))
+
+        if (guess_row, guess_col) in player.ships:
+            print("Computer hit a battleship!")
+            player.board[guess_row][guess_col] = "X"
+            player.ships.remove((guess_row, guess_col))
+            if len(player.ships) == 0:
+                print("You lose! Computer sank all your battleship!")
+                break
+        else:
+            print("Computer missed the battleship!")
+            player.board[guess_row][guess_col] = "-"
+
         player.print_board()
         computer.print_board()
 
-    print("Game Over! Players ran out of guesses.")
+    print("Game Over!")
 
 
 def new_game():
