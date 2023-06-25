@@ -113,9 +113,9 @@ def new_game():
     size = 5
     ships = 3
 
-    print("Welcome")
+    print("Welcome to my Battleship!")
     name = input("Enter players name:\n")
-
+    
     player_board = BattleShipBoard(size, ships, name)
     computer_board = BattleShipBoard(size, ships, "Computer")
 
