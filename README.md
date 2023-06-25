@@ -33,7 +33,7 @@ Here is the live version of my <a href="https://sarabattleship-16aeb171f912.hero
 
 # Data model
 
-I have chosen to put the computer in a class called Battleshipboard. There it is defined size, number of ships, position and playing field. It runs twice.
+I have chosen to put the model in a class called Battleshipboard. There it is defined size, number of ships, position and playing field. It runs both for player and computer.
 
 # Testing
 
