@@ -21,16 +21,16 @@ Here is the live version of my <a href="https://sarabattleship-16aeb171f912.hero
 
 - The playing field shows both your and the opponent's (computer) plan at the same time. It is also possible to enter its name in an input at the start of the game
 
+# Future Features
+
+- Allow player to set the size of board and number of ships. 
+
 ## Input validation
 
 - You must enter numbers
 - You cannot enter coordinates outside the size of the grid
 -  You can not enter the same guess twice
 
-
-# Future Features
-
-- Allow player to set the size of board and number of ships. 
 
 ## Data model
 
