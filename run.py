@@ -1,51 +1,44 @@
 
 from random import randint
-board = []
-
-for x in range(5):
-    board.append([" 0 "] * 5)
 
 
-def print_board(board):
-    for row in board:
-        print(" ".join(row))
+class BattleShipBoard:
+    def __init__(self, size, num_ships, name, type):
+        self.size = size
+        self.num_ships = num_ships
+        self.name = name
+        self.type = type
+        self.board = [["." for x in range(size)] for y in range(size)]
+        self.guesses = []
+        self.ship = []
+
+    def get_random(self):
+        return randint(0, self.size - 1)
+
+    def setup_board(self):
+        for _ in range(self.num_ships):
+            row = self.get_random()
+            col = self.get_random()
+            self.ship.append((row, col))
+
+    def print_board(self):
+        for row in self.board:
+            print(" ".join(row))
 
 
-print("Lets play!")
-print_board(board)
+def new_game():
+    size = 5
+    ships = 3
+    print("Welcome")
+    name = input("Enter players name:\n")
+
+    player_board = BattleShipBoard(size, ships, name, type="player")
+    computer_board = BattleShipBoard(size, ships, name, type="computer")
+
+    player_board.setup_board()
+    computer_board.setup_board()
+
+    player_board.print_board()
 
 
-def random_row(board):
-    return randint(0, len(board) - 1)
-
-
-def random_col(board):
-    return randint(0, len(board[0]) - 1)
-
-
-ship_row = random_row(board)
-ship_col = random_col(board)
-
-print(ship_row)
-print(ship_col)
-
-for turn in range(4):
-    print("Turn", turn + 1)
-    guess_row = int(input("Guess Row:\n"))
-    guess_col = int(input("Guess Col:\n"))
-
-if guess_row == ship_row and guess_col == ship_col:
-    print("Well done! You sank my battleship!")
-
-else:
-    if guess_row not in range(5) or guess_col not in range(5):
-        print("Oops, that's not even in the ocean.")
-    elif board[guess_row][guess_col] == "X":
-        print("You have already guess that one.")
-
-    else:
-        print("Haha you missed my battleship!")
-        board[guess_row][guess_col] = "X"
-        if turn == 3:
-            print("Game Over")
-            print_board(board)
+new_game()
