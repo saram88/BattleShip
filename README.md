@@ -42,18 +42,18 @@ I have chosen to put the computer in a class called Battleshipboard. There it is
 - Tested in Heroku terminal
 - Tested in CSV terminal 
 
-## Bugs
+# Bugs
 
-### Solved bugs
+## Solved bugs
 
 - When computer picks position generated a new position. In the beginning, there could be duplicates of the position. I solved this by checking the position and if the DN was already used, a new position was generated.
 - Validation of data input. Checking the data that came in and it would continue as long as incorrect data is entered. It was resolved through a loop that was interrupted when the data was correct.
 
-### Remaining bugs
+## Remaining bugs
 
 - No bugs remaining
 
-## Validator Testing
+# Validator Testing
 
 - PEP8
     - No errors where found in https://pep8ci.herokuapp.com/
@@ -68,7 +68,7 @@ Steps for deployments:
 - Created a new Heroku app
 - Set up buildpacks to Python and NodeJS
 
-## Credits
+# Credits
 
 - Wikipedia to understand what a Battleship game is
 - Code institute github, movies and other          materials. 
