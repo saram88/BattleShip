@@ -10,10 +10,8 @@ class BattleShipBoard:
         self.board = [["." for x in range(size)] for y in range(size)]
         self.ships = []
 
-
     def get_random(self):
         return randint(0, self.size - 1)
-
 
     def setup_board(self):
         while len(self.ships) < self.num_ships:
@@ -21,7 +19,6 @@ class BattleShipBoard:
             col = self.get_random()
             if not (row, col) in self.ships:
                 self.ships.append((row, col))
-
 
     def print_board(self):
         print("{}'s board".format(self.name))
